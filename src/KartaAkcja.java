@@ -5,7 +5,6 @@ public class KartaAkcja extends Karta{
         this.opis=opis;
     }
     public void wypisz(){
-        System.out.println(nazwa);
         System.out.println(opis);
     }
 }

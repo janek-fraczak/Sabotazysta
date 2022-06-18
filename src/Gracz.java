@@ -29,9 +29,7 @@ public class Gracz {
     public void pokazKarty() {
         for(int i=0; i<karty.size(); i++){
             System.out.println(i + "." + karty.get(i).nazwa);
-            if(karty.get(i).nazwa.equals("tunel")){
-                karty.get(i).wypisz();
-                    }
+            karty.get(i).wypisz();
         }
     }
 
