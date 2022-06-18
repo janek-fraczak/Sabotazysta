@@ -5,18 +5,20 @@ public class Gracz {
 
     String nazwa;
     boolean kopacz;
+    boolean lampa, kilof, wozek;
     int wiek;
     boolean czyGraczToKomputer;
 
     List<Karta> karty;
-    List<Karta> ban;
+
     Gracz(int wiek, String nazwa, boolean AI){
         this.nazwa=nazwa;
         this.wiek=wiek;
         this.czyGraczToKomputer=AI;
         this.karty= new ArrayList<>();
-        this.ban= new ArrayList<>();
-
+        this.lampa=true;
+        this.kilof=true;
+        this.wozek=true;
     }
     void dobierzKarte(List<Karta> talia){
         Karta tmp=talia.remove(talia.size()-1);

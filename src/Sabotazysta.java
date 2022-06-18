@@ -16,7 +16,7 @@ public class Sabotazysta {
         //scan.nextLine();
         Stol stol=new Stol();
         Random rand = new Random();
-        int cel=rand.nextInt(3)+1;
+        int cel=rand.nextInt(3);
         stol.rozpocznijGre();
         stol.wypisz();
         String Name;
@@ -55,7 +55,7 @@ public class Sabotazysta {
             }
         }
         String ruchGracza;
-        int kartaIdx;
+        int ruchGraczaIdx;
         Gracz aktualny;
         Karta zagrywanaKarta;
         for(int i=0;;i++){
@@ -65,10 +65,13 @@ public class Sabotazysta {
             scan.nextLine();
             stol.wypisz();
             aktualny.pokazKarty();
+            if(aktualny.lampa&&aktualny.kilof&& aktualny.wozek){
+                System.out.println("Jestes odblokowany, mozesz grac karty tuneli");
+            }
             System.out.println("wybierz karte");
-            kartaIdx=scan.nextInt();
+            ruchGraczaIdx=scan.nextInt();
             scan.nextLine();
-            zagrywanaKarta=aktualny.karty.remove(kartaIdx);
+            zagrywanaKarta=aktualny.karty.remove(ruchGraczaIdx);
             System.out.println("czy chcesz odrzucic? T N ");
             ruchGracza=scan.nextLine();
             if(ruchGracza.equals("T")){
@@ -78,7 +81,8 @@ public class Sabotazysta {
                 continue;
             }
             int x, y;
-            switch (zagrywanaKarta.nazwa){
+            String[] karta=zagrywanaKarta.nazwa.split(" ");
+            switch (karta[0]){
                 case "tunel":
                     System.out.println("Czy chesz obrocic karte? T N");
                     ruchGracza=scan.nextLine();
@@ -92,22 +96,68 @@ public class Sabotazysta {
                     scan.nextLine();
                     stol.polozKarte((KartaTunel)zagrywanaKarta,x,y);
                     break;
+                case "podejrzyjCel":
+                    System.out.println("Czy chesz odslonic karte celu? {0, 2, 4}");
+                    ruchGraczaIdx=scan.nextInt();
+                    scan.nextLine();
+                    if(cel*2==ruchGraczaIdx) {
+                        System.out.println("!!!złoto!!!");
+                    }
+                    else {
+                        System.out.println("-- kamien --");
+                    }
+                    break;
+                case "ban":
+                    System.out.println("Mozesz zabrac "+karta[1]+ ". Podaj index gracza do zbanowania");
+                    ruchGraczaIdx=scan.nextInt();
+                    scan.nextLine();
+                    switch (karta[1]) {
+                        case "Lampa":
+                            gra.gracze.get(ruchGraczaIdx).lampa = false;
+                            break;
+                        case "Kilof":
+                            gra.gracze.get(ruchGraczaIdx).kilof = false;
+                            break;
+                        case "Wozek":
+                            gra.gracze.get(ruchGraczaIdx).wozek = false;
+                            break;
+                    }
+                default:
+                    System.out.println("Mozesz oddac ");
+                    for(int k=0;k<karta.length;k++){
+                        System.out.println(k+": "+karta[k]+" ");
+                    }
+                    System.out.println("dowolnemu graczowi. Podaj index artefaktu do odblokowania oraz index gracza do odblokowania");
+                    x=scan.nextInt();
+                    ruchGraczaIdx=scan.nextInt();
+                    switch(karta[x]){
+                        case "Lampa":
+                            gra.gracze.get(ruchGraczaIdx).lampa = true;
+                            break;
+                        case "Kilof":
+                            gra.gracze.get(ruchGraczaIdx).kilof = true;
+                            break;
+                        case "Wozek":
+                            gra.gracze.get(ruchGraczaIdx).wozek = true;
+                            break;
+                    }
             }
             if(!stol.karty.isEmpty())
                 aktualny.dobierzKarte(stol.karty);
             //stol.czyCelOsiagniety();
             System.out.println("Czy chesz odslonic karte celu? {1, 2, 3} or 0=N");
-            kartaIdx=scan.nextInt();
+            ruchGraczaIdx=scan.nextInt();
             scan.nextLine();
-            if(kartaIdx==0)
+            if(ruchGraczaIdx==0)
                 continue;
-            if(cel==kartaIdx) {
+            if(cel==ruchGraczaIdx) {
                 System.out.println("!!!złoto!!!");
                 break;
             }
             else {
-                    System.out.println("-- kamien --");
+                System.out.println("-- kamien --");
             }
         }
+        scan.close();
     }
 }

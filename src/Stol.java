@@ -69,7 +69,43 @@ public class Stol {
         kierunki=new char[][]{{'o','o','o'},{'+','+','o'},{'o','o','o'}};
         tmp=new KartaTunel(kierunki);
         karty.add(tmp);//koniec tuneli
-        //Karta karta=new Akcja("zniszczTunel");
+        kierunki=new char[][]{{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
+        tmp=new KartaTunel(kierunki,"tunel zniszcz");
+        for(int i=0;i<6;i++)
+            karty.add(tmp);
+        Karta karta=new KartaAkcja("podejrzyjCel");
+        for(int i=0;i<6;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("ban Lampa");
+        for(int i=0;i<3;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("ban Wozka");
+        for(int i=0;i<3;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("ban Kilofa");
+        for(int i=0;i<3;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Lampa");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Kilof");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Wozek");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Wozek Kilof");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Wozek Lampa");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+        karta=new KartaAkcja("Kilof Lampa");
+        for(int i=0;i<2;i++)
+            karty.add(karta);
+
+
+
         Collections.shuffle(karty);
     }
     void rozpocznijGre(){
