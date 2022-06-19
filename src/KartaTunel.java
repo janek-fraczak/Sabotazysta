@@ -18,12 +18,17 @@ public class KartaTunel extends Karta{
         kierunki[0][1]=tmp;
     }
     public void wypisz() {
+        System.out.print(" ___");
+        System.out.println();
         for (int i = 0; i < 3; i++) {
+            System.out.print("|");
             for (int j = 0; j < 3; j++) {
                 System.out.print(kierunki[i][j]);
             }
+            System.out.print("|");
             System.out.println();
         }
+        System.out.print(" ---");
         System.out.println();
     }
 }

@@ -122,6 +122,7 @@ public class Sabotazysta {
                             gra.gracze.get(ruchGraczaIdx).wozek = false;
                             break;
                     }
+                    break;
                 default:
                     System.out.println("Mozesz oddac ");
                     for(int k=0;k<karta.length;k++){
@@ -141,6 +142,7 @@ public class Sabotazysta {
                             gra.gracze.get(ruchGraczaIdx).wozek = true;
                             break;
                     }
+                    break;
             }
             if(!stol.karty.isEmpty())
                 aktualny.dobierzKarte(stol.karty);
