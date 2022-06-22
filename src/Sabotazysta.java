@@ -8,12 +8,13 @@ public class Sabotazysta {
 
         System.out.println("Podaj liczbe graczy");
         Scanner scan = new Scanner(System.in);
-        int liczba_graczy=3;
-        // int liczba_graczy=scan.nextInt();
+        //int liczba_graczy=3; //do testów
+        int liczba_graczy=scan.nextInt(); //for real
+        scan.nextLine();
         System.out.println("Podaj liczbe AI");
         int liczba_AI=0;
-        //int liczba_AI=scan.nextInt();
-        //scan.nextLine();
+        //int liczba_AI=scan.nextInt(); //TO_DO
+        //scan.nextLine(); //TO_DO
         Stol stol=new Stol();
         Random rand = new Random();
         int cel=rand.nextInt(3);
@@ -27,12 +28,12 @@ public class Sabotazysta {
         int wiek;
         for(int i =0; i<liczba_graczy;i++){
             System.out.println("Podaj imie kolejnego gracza");
-            //Name = scan.nextLine();
-            Name="ja" + (char)i;
+            Name = scan.nextLine();
+            //Name="ja" + (char)i; // do testów
             System.out.println("Podaj wiek gracza");
-            //wiek=scan.nextInt();
-            //scan.nextLine();
-            wiek = i*10;
+            wiek=scan.nextInt();
+            scan.nextLine();
+            //wiek = i*10;// do testów
             tmp=new Gracz(wiek, Name, false);
             gra.gracze.add(tmp);
         }
@@ -65,9 +66,19 @@ public class Sabotazysta {
             scan.nextLine();
             stol.wypisz();
             aktualny.pokazKarty();
-            if(aktualny.lampa&&aktualny.kilof&& aktualny.wozek){
+            if(aktualny.lampa && aktualny.kilof && aktualny.wozek){
                 System.out.println("Jestes odblokowany, mozesz grac karty tuneli");
             }
+            else{
+                System.out.println("Jestes zablokowany, nie mozesz grac karty tuneli. Brakuje Ci:");
+                if(!aktualny.lampa)
+                    System.out.print("Lampa, ");
+                if(!aktualny.kilof)
+                    System.out.print("Kilof, ");
+                if(!aktualny.wozek)
+                    System.out.print("Wozek, ");
+            }
+            System.out.println();
             System.out.println("wybierz karte");
             ruchGraczaIdx=scan.nextInt();
             scan.nextLine();
@@ -95,6 +106,18 @@ public class Sabotazysta {
                     y= scan.nextInt();
                     scan.nextLine();
                     stol.polozKarte((KartaTunel)zagrywanaKarta,x,y);
+                    int znaleziono=stol.dojscieDoCelu(0,0);
+                    if(znaleziono==0) break;
+                    if(znaleziono/6==cel)
+                        System.out.println("!!!Zloto!!!");
+                    else {
+                        System.out.println("-----  Kamien  ----- PROBOJ DALEJ");
+                        for (int k = 0; k < 3; k++) {
+                            for (int j = 0; j < 3; j++) {
+                                stol.plansza_f[24 + i][(znaleziono / 3) * 3 + j]='K';
+                            }
+                        }
+                    }
                     break;
                 case "podejrzyjCel":
                     System.out.println("Czy chesz odslonic karte celu? {0, 2, 4}");
@@ -147,7 +170,8 @@ public class Sabotazysta {
             if(!stol.karty.isEmpty())
                 aktualny.dobierzKarte(stol.karty);
             //stol.czyCelOsiagniety();
-            System.out.println("Czy chesz odslonic karte celu? {1, 2, 3} or 0=N");
+            /*
+                        System.out.println("Czy chesz odslonic karte celu? {1, 2, 3} or 0=N");
             ruchGraczaIdx=scan.nextInt();
             scan.nextLine();
             if(ruchGraczaIdx==0)
@@ -159,7 +183,7 @@ public class Sabotazysta {
             else {
                 System.out.println("-- kamien --");
             }
+            */
         }
-        scan.close();
     }
 }

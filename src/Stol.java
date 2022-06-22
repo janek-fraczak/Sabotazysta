@@ -12,6 +12,18 @@ public class Stol {
             }
         }
     }
+    int dojscieDoCelu(int x, int y){
+        if(x<0||x>26||y<0||y>14) return 0;
+        if(plansza_f[x*3][y*3]=='?') return y;
+        if(plansza_f[x*3][y*3]==' ') return 0;
+        int result=dojscieDoCelu(x+1,y);
+        if(result>0) return result;
+        result=dojscieDoCelu(x-1,y);
+        if(result>0) return result;
+        result=dojscieDoCelu(x,y-1);
+        if(result>0) return result;
+        return dojscieDoCelu(x,y+1);
+    }
     void stworzTalie(){
         Karta tmp;
         char[][] kierunki={{'o','+','o'},{'o','+','o'},{'o','+','o'}};
